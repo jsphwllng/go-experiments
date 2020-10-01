@@ -2,31 +2,48 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
-	"time"
 )
 
-func multipleReturns(x int) (int, int) {
-	doubled := x * 2
-	return x, doubled
+func averageArray(arr [4]int) int {
+	var total int
+
+	for i := 0; i < len(arr); i++ {
+		total += arr[i]
+	}
+	return total
 }
 
-func playWithScope(words *string) {
-	*words = "played with scope"
+type Salary struct {
+	basic, allowance, bonuses int
+}
+
+type Employee struct {
+	firstName, lastName string
+	salary              Salary
+	fullTime            bool
+}
+
+func mapStuff() {
+	testMap := map[string]int{
+		"firstest": 1,
+		"second":   2,
+		"third":    3,
+		"4th":      4,
+	}
+	for key, value := range testMap {
+		fmt.Println(key, "=>", value)
+	}
 }
 
 func main() {
-	rand.Seed(time.Now().UnixNano())
-	var value, doubled int
-	words := "playing with scope"
-	random := rand.Intn(10000)
-	//deferred statements run when the function scope has ended
-	defer fmt.Println("\nthis is deferred!")
-
-	value, doubled = multipleReturns(random)
-
-	playWithScope(&words)
-
-	defer fmt.Print(value, " doubled is ", doubled, "\n", words)
-
+	joe := Employee{
+		firstName: "joe",
+		lastName:  "phwllng",
+		salary:    Salary{10, 20, 30},
+		fullTime:  false,
+	}
+	fmt.Println(joe.salary.basic)
+	joe.salary.basic = 20
+	fmt.Println(joe.salary.basic)
+	mapStuff()
 }
