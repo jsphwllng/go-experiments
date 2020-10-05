@@ -44,3 +44,14 @@ for key, value := range testMap {
 		fmt.Println(key, "=>", value)
 	}
 ```
+
+* go appends arrays by making new arrays for example
+
+```go
+a := make([]string, 2)
+s := append(a, "two")
+fmt.Println(a)
+// []
+fmt.Println(s)
+// [ two ]
+```
