@@ -45,7 +45,7 @@ for key, value := range testMap {
 	}
 ```
 
-* go appends arrays by making new arrays for example
+* go appends arrays by making new arrays for example:
 
 ```go
 a := make([]string, 2)
