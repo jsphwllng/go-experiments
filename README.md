@@ -49,9 +49,9 @@ for key, value := range testMap {
 
 ```go
 a := make([]string, 2)
-s := append(a, "two")
+s := append(a, "test")
 fmt.Println(a)
 // []
 fmt.Println(s)
-// [ two ]
+// [ test]
 ```
