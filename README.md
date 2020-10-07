@@ -55,3 +55,25 @@ fmt.Println(a)
 fmt.Println(s)
 // [ test]
 ```
+
+* syncs and wait groups
+
+```go
+
+func say(s string) {
+	for i := 0; i < 3; i++ {
+		fmt.Println(s)
+		time.Sleep(time.Millisecond * 100)
+	}
+	wg.Done()
+}
+
+func main() {
+	wg.Add(1)
+	go say("hello!")
+	wg.Add(1)
+	go say("neato")
+	wg.Wait()
+}
+
+```
