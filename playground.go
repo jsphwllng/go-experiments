@@ -12,7 +12,12 @@ var wg sync.WaitGroup
 func cleanup() {
 	defer wg.Done()
 	if r := recover(); r != nil {
-		fmt.Println("recovered in cleanup: ", r)
+		if r == "an example error that stops the script." {
+			fmt.Println("you found the example error: ", r)
+			say("lol")
+		} else {
+			fmt.Println("recovered in cleanup: ", r)
+		}
 	}
 }
 
@@ -21,8 +26,8 @@ func say(s string) {
 	for i := 0; i < 3; i++ {
 		fmt.Println(s)
 		time.Sleep(time.Millisecond * 100)
-		if i == 0 {
-			panic("an example error that stops the script.")
+		if i == 2 {
+			panic("this is an example error")
 		}
 	}
 }
