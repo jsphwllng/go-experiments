@@ -9,34 +9,45 @@ import (
 //wg = "wait group"
 var wg sync.WaitGroup
 
-func cleanup() {
-	defer wg.Done()
-	if r := recover(); r != nil {
-		if r == "an example error that stops the script." {
-			fmt.Println("you found the example error: ", r)
-			say("lol")
-		} else {
-			fmt.Println("recovered in cleanup: ", r)
-		}
-	}
+//This function only accepts a channel for sending values. It would be a compile-time error to try to receive on this channel.
+func recieve(recieveChannel chan<- string, msg string) {
+	recieveChannel <- msg
 }
 
-func say(s string) {
-	defer cleanup()
-	for i := 0; i < 3; i++ {
-		fmt.Println(s)
-		time.Sleep(time.Millisecond * 100)
-		if i == 2 {
-			panic("this is an example error")
-		}
-	}
+//The pong function accepts one channel for receives (recieveChannel) and a second for sends (sendChannel).
+func send(recieveChannel <-chan string, sendChannel chan<- string) {
+	msg := <-recieveChannel
+	sendChannel <- msg
 }
 
 func main() {
-	defer fmt.Println("this is a defer")
-	wg.Add(1)
-	go say("hello!")
-	wg.Add(1)
-	go say("neato")
-	wg.Wait()
+	recieveChannel := make(chan string, 2)
+	sendChannel := make(chan string, 2)
+	recieve(recieveChannel, "passed message")
+	send(recieveChannel, sendChannel)
+	//print what is stored in the sendChannel
+	fmt.Println(<-sendChannel)
+
+	channel1, channel2 := make(chan string, 1), make(chan string, 1)
+
+	go func() {
+		time.Sleep(1 * time.Second)
+		channel1 <- "first message"
+	}()
+	go func() {
+		time.Sleep(2 * time.Second)
+		channel2 <- "second message"
+	}()
+
+	for i := 0; i < 2; i++ {
+		select {
+		/*select operates whenevr a case is met so in this example once a case is satisfied "channel1 has a message" then it will print the message. if we change this to have a default then it will rush through the select and print the example twice*/
+		case msg1 := <-channel1:
+			fmt.Println("received", msg1)
+		case msg2 := <-channel2:
+			fmt.Println("received", msg2)
+			// default:
+			// 	fmt.Println("example")
+		}
+	}
 }
