@@ -76,4 +76,67 @@ func main() {
 	wg.Wait()
 }
 
+
+```
+* channels
+
+```go
+
+// channel <- data
+//         ^ pushes data to a channel
+// <- channel
+// ^ we read the channel for example
+
+c := make(chan string)
+c <- "hello"
+channelString := <- c
+fmt.Println(channelString)
+//"hello"
+
+
+```
+
+* building a _simple_ web server seems easy too!
+
+```go
+package main
+
+import (
+	"fmt"
+	"net/http"
+)
+
+func indexHandler(w http.ResponseWriter, r *http.Request) {
+	//fprint will format will specify based on the writer and will output hello
+	fmt.Fprintf(w, "<h1 style='font-size: 200px'>hello!</h1>")
+}
+
+func aboutHandler(w http.ResponseWriter, r *http.Request) {
+	//fprint will format will specify based on the writer and will output hello
+	fmt.Fprintf(w, "i am joe!")
+}
+
+func main() {
+	http.HandleFunc("/", indexHandler)
+	http.HandleFunc("/about/", aboutHandler)
+	http.ListenAndServe(":3000", nil)
+}
+```
+* parsing a website isn't hard either
+
+```go
+import (
+	"fmt"
+	"io/ioutil"
+	"net/http"
+)
+
+func indexHandler(w http.ResponseWriter, r *http.Request) {
+	//fprint will format will specify based on the writer and will output hello
+	fmt.Fprintf(w, "<h1 style='font-size: 200px'>hello!</h1>")
+	resp, _ := http.Get("https://www.lewagon.com/")
+	bytes, _ := ioutil.ReadAll(resp.Body)
+	stringBody := string(bytes)
+	fmt.Fprintf(w, stringBody)
+}
 ```
