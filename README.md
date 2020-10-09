@@ -1,11 +1,19 @@
+<div align="center">
+<a href="https://github.com/egonelbre/gophers" rel="some text">
+	<img style="size: 30%;" src="https://raw.githubusercontent.com/egonelbre/gophers/master/.thumb/animation/gopher-dance-long-3x.gif" alt="welcome to kmy github!">
+	</a>
+</div>
+
 # A place for me to document my Go learnings
 <p>My end goal is to write a program that will take a photograph through a webcam daily and then upload this picture to instagram. I have a long way to "go" before this though.</p>
 
-<div align="center">
-<a href="https://github.com/egonelbre/gophers" rel="some text">
-	<img style="size: 30%;" src="https://raw.githubusercontent.com/egonelbre/gophers/master/.thumb/animation/gopher-dance-long-3x.gif" alt="welcome to my github!">
-	</a>
-</div>
+## resources
+
+* [a tour of go](https://tour.golang.org)
+* [go by example](https://gobyexample.com)
+* [a cool talk from google about concurrency in go](https://www.youtube.com/watch?v=f6kdp27TYZs)
+* [a nice tutorial series from sentdex ](https://www.youtube.com/playlist?list=PLQVvvaa0QuDeF3hP0wQoSxpkqgRcgxMqX) (i would recommend this AFTER the tour of go)
+* [a good collection of medium articles](https://medium.com/rungo?source=post_page-----79b82836838b--------------------------------)
 
 ## Thoughts on Go
 

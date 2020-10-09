@@ -7,7 +7,9 @@ import (
 )
 
 func main() {
+	//seeding
 	rand.Seed(time.Now().UnixNano())
+
 	c1, c2 := make(chan string, 1), make(chan string, 1)
 	go func() {
 		time.Sleep(2 * time.Second)
@@ -34,18 +36,19 @@ func main() {
 
 	c3 := make(chan string, 1)
 	n := rand.Intn(5)
+	fmt.Println("who painted the mona lisa?")
 	timeout := time.After(time.Duration(n) * time.Second)
 	go func() {
 		for i := 0; i < 10; i++ {
 			time.Sleep(5 * time.Second)
-			c3 <- "alternative"
+			c3 <- "da vinky?"
 		}
 	}()
 	select {
 	case res := <-c3:
 		fmt.Println(res)
 	case <-timeout:
-		fmt.Println("no message", n)
+		fmt.Println("da vinci")
 	}
 
 }
