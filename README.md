@@ -21,6 +21,7 @@
 * defer is a good concept and could make human-reading functions a bit quicker
 * the &variable and *variable pointers are interesting but it seems to boil down to scope which is always annoying
 * structures are interesting
+* uninitialised variables always being the `0` value (i.e false or 0) is interesting 
 
 ```go
 type Salary struct {
@@ -45,12 +46,23 @@ joe := Employee{
 	fmt.Println(joe.salary.basic)
 
 ```
-* maps are essentially dictionaries in python which is fine just iterating over them is a bit more tricky
+* maps are essentially dictionaries in python which is fine just iterating over them is a bit more tricky **maps are also unordered**
 
 ```go
+
+testMap := map[string]int{
+	"a string key": 1337,
+	"paired with": 96,
+	"an int value": 11111,
+}
+
 for key, value := range testMap {
 		fmt.Println(key, "=>", value)
 	}
+	//a string key => 1337...
+fmt.Println(testMap["an int value"])
+	// 11111
+delete(testMap, "paired with")
 ```
 
 * go appends arrays by making new arrays for example:
@@ -62,6 +74,30 @@ fmt.Println(a)
 // []
 fmt.Println(s)
 // [ test]
+```
+
+* slices behave interestingly
+_slices describe a section of an array so editing a section edits the array_
+
+```go
+array := [4]int{1,2,3,4,}
+fmt.Println(array)
+//[1, 2, 3, 4]
+slice := array[0:2]
+fmt.Println(slice)
+//[1 2]
+slice[0] = 1337
+fmt.Println(slice, array)
+//[1337 2] [1337, 2, 3, 4]
+```
+
+* iterating over an array
+
+```go
+array := strings.Split("meow", "")
+for index, value := range array{
+	fmt.Println(index, value)
+}
 ```
 
 * syncs and wait groups
