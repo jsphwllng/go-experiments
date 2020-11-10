@@ -43,7 +43,7 @@ joe := Employee{
 	}
 	fmt.Println(joe.salary.basic)
 	joe.salary.basic = 20
-	fmt.Println(joe.salary.basic)
+	fmt.Printf("%+v", joe.salary)
 
 ```
 * maps are essentially dictionaries in python which is fine just iterating over them is a bit more tricky **maps are also unordered** and black keys return `0` however we can get around this with the `ok` check
@@ -64,8 +64,10 @@ fmt.Println(testMap["an int value"])
 	// 11111
 delete(testMap, "paired with")	
 _, ok := testMap["paired with"]
-fmt.Println(ok)
-//0, false
+if ok == false {
+	fmt.Println("not a key")
+}
+//not a key
 ```
 
 * go appends arrays by making new arrays for example:
@@ -185,5 +187,42 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 	bytes, _ := ioutil.ReadAll(resp.Body)
 	stringBody := string(bytes)
 	fmt.Fprintf(w, stringBody)
+}
+```
+
+* go does **not** support inheritance however you can 'embed' structs within themselves: the bird here has an animal but it is _not_ an animal.
+
+```go
+type Animal struct {
+	name string
+	origin string
+}
+
+type Bird struct {
+	Animal
+	speed	float32
+	canFly	bool
+}
+
+func main(){
+	b := Bird{}
+	b.name = "Dave"
+	b.origin = "NZ"
+	b.speed = 90
+	b.canFly = true
+	fmt.Printf("%+v\n", b)
+	fmt.Println(b.name)
+	//{Animal:{name:Dave origin:NZ} speed:90 canFly:true}
+	//Dave
+	bb := Bird{
+		Animal: Animal{name: "mike", origin: "Auz"},
+		speed: 200,
+		canFly: true,
+	}
+	fmt.Println(bb.name)
+	//mike
+	fmt.Println(bb.Animal)
+	//{mike Auz}
+
 }
 ```
