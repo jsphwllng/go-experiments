@@ -46,7 +46,7 @@ joe := Employee{
 	fmt.Println(joe.salary.basic)
 
 ```
-* maps are essentially dictionaries in python which is fine just iterating over them is a bit more tricky **maps are also unordered**
+* maps are essentially dictionaries in python which is fine just iterating over them is a bit more tricky **maps are also unordered** and black keys return `0` however we can get around this with the `ok` check
 
 ```go
 
@@ -62,7 +62,10 @@ for key, value := range testMap {
 	//a string key => 1337...
 fmt.Println(testMap["an int value"])
 	// 11111
-delete(testMap, "paired with")
+delete(testMap, "paired with")	
+_, ok := testMap["paired with"]
+fmt.Println(ok)
+//0, false
 ```
 
 * go appends arrays by making new arrays for example:
