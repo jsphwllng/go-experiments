@@ -22,6 +22,31 @@
 * the &variable and *variable pointers are interesting but it seems to boil down to scope which is always annoying
 * structures are interesting
 * uninitialised variables always being the `0` value (i.e false or 0) is interesting 
+* functions behave normally _i.e you can use them to return values_
+* pointers: & refers to the address and * to the value stored at the address. For performance reasons you may use pointers as arguments in functions.
+
+* if you specify the return variable name you can iterate on it in the function
+
+```go
+
+func sum(values ...int) (result int) {
+	for _, v := range(values)
+		result += v
+	return	
+}
+```
+
+* anonymous functions - the last () calls the function
+
+```go
+func main() {
+	func() {
+		fmt.Println("Hello!)
+	}() 
+}
+```
+
+* structs
 
 ```go
 type Salary struct {
@@ -63,8 +88,9 @@ for key, value := range testMap {
 fmt.Println(testMap["an int value"])
 	// 11111
 delete(testMap, "paired with")	
-_, ok := testMap["paired with"]
-if ok == false {
+if value, ok := testMap["paired with"]; ok {
+	fmt.Println(value)
+} else {
 	fmt.Println("not a key")
 }
 //not a key
@@ -223,6 +249,55 @@ func main(){
 	//mike
 	fmt.Println(bb.Animal)
 	//{mike Auz}
+}
+```
 
+* defer statements:
+
+```go
+fmt.Println("1")
+defer fmt.Println("2")
+fmt.Println("3")
+//1
+//3
+//2
+```
+
+# Examples
+### fizzbuzz
+```go
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	for i := 1; i < 100; i++ {
+		if i%3 == 0 && i%5 == 0 {
+			fmt.Println("fizzbuzz")
+		} else if i%5 == 0 {
+			fmt.Println("fizz")
+		} else if i%3 == 0 {
+			fmt.Println("buzz")
+		} else {
+			fmt.Println(i)
+		}
+	}
+	fmt.Println("done!")
+}
+```
+### Using multiple, unnamed variables in a function
+
+```go
+func main() {
+	scream("hello", "goodbye", "nihao", "salam", "oh", "aaaaii")
+}
+
+
+func scream(words ...string) {
+	for _, v := range words {
+		fmt.Println(strings.ToUpper(v) + "!!!!!!!!!!!!!")
+	}
 }
 ```

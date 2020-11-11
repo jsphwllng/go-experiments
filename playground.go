@@ -3,33 +3,23 @@ package main
 import (
 	"fmt"
 	"strings"
-	"sync"
 )
 
-var wg = sync.WaitGroup{}
-var counter = 0
-
 func main() {
-	for i := 0; i < 10; i++ {
-		wg.Add(2)
-		go sayHello()
-		go increment()
-	}
-	wg.Wait()
-	const test string = "hello"
-	s := strings.Split(test, "")
-	for i, s := range s {
-		fmt.Println(i, s)
-	}
+	salutation := "Hello!"
+	name := "joe"
+	sayGreeting(&salutation, &name)
+	fmt.Println(salutation, name)
+	scream("hello", "goodbye", "nihao", "mabrook", "oh")
 }
 
-//! these are not syncronised
-func sayHello() {
-	fmt.Printf("Hello #%v\n", counter)
-	wg.Done()
+func sayGreeting(salutation, name *string) {
+	*salutation = "go away"
+	*name = "michael"
 }
 
-func increment() {
-	counter++
-	wg.Done()
+func scream(words ...string) {
+	for _, v := range words {
+		fmt.Println(strings.ToUpper(v) + "!!!!!!!!!!!!!")
+	}
 }
