@@ -1,25 +1,32 @@
 package main
 
 import (
+	"encoding/csv"
 	"fmt"
-	"strings"
+	"io"
+	"log"
+	"os"
 )
 
 func main() {
-	salutation := "Hello!"
-	name := "joe"
-	sayGreeting(&salutation, &name)
-	fmt.Println(salutation, name)
-	scream("hello", "goodbye", "nihao", "mabrook", "oh")
-}
-
-func sayGreeting(salutation, name *string) {
-	*salutation = "go away"
-	*name = "michael"
-}
-
-func scream(words ...string) {
-	for _, v := range words {
-		fmt.Println(strings.ToUpper(v) + "!!!!!!!!!!!!!")
+	// open the CSV - check for errors
+	csvfile, err := os.Open("sample.csv")
+	if err != nil {
+		log.Fatalln("ERROR: ", err)
 	}
+
+	r := csv.NewReader(csvfile)
+
+	//iterating through the records
+	for {
+		record, err := r.Read()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Printf("%s, %s, %s\n", record[0], record[1], record[2])
+	}
+
 }
