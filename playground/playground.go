@@ -10,7 +10,6 @@ import (
 
 func main() {
 	// open the CSV - check for errors
-	defer fmt.Println("hello!")
 	csvfile, err := os.Open("data.csv")
 	if err != nil {
 		log.Fatalln("ERROR: ", err)
