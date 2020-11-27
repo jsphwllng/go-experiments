@@ -15,6 +15,7 @@ func TestString(t *testing.T) {
 		{"hello, world!", "eoo"},
 		{"lorem ipsum haha", "oeiuaa"},
 		{"UPCASETEST", "uaee"},
+		{"n0-v0w3l5", ""},
 	}
 	for _, testingTable := range tests {
 		testname := fmt.Sprintf("%s", testingTable.in)
