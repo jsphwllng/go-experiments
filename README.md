@@ -5,7 +5,7 @@
 </div>
 
 # A place for me to document my Go learnings
-<p>My end goal is to write a program that will take a photograph through a webcam daily and then upload this picture to instagram. I have a long way to "go" before this though.</p>
+My end goal is to write a program that will take a photograph through a webcam daily and then upload this picture to instagram. I have a long way to "go" before this though.
 
 ## resources
 
@@ -14,6 +14,7 @@
 * [a cool talk from google about concurrency in go](https://www.youtube.com/watch?v=f6kdp27TYZs)
 * [a nice tutorial series from sentdex ](https://www.youtube.com/playlist?list=PLQVvvaa0QuDeF3hP0wQoSxpkqgRcgxMqX) (i would recommend this AFTER the tour of go)
 * [a good collection of medium articles](https://medium.com/rungo?source=post_page-----79b82836838b--------------------------------)
+* [the go programming language -  Donovan Alan A. A., Kernighan Brian W.](https://www.amazon.com/Programming-Language-Addison-Wesley-Professional-Computing-ebook/dp/B0184N7WWS)
 
 ## Thoughts on Go
 
@@ -69,8 +70,25 @@ joe := Employee{
 	fmt.Println(joe.salary.basic)
 	joe.salary.basic = 20
 	fmt.Printf("%+v", joe.salary)
-
 ```
+
+* comparing structs
+
+```go
+type Point struct{ x, y int }
+
+func main() {
+	a := Point{1, 2}
+	b := Point{1, 2}
+	c := Point{2, 1}
+	d := Point{y: 2, x: 1}
+	fmt.Println("a == b: ", a == b) //true
+	fmt.Println("b == c: ", b == c) //false
+	fmt.Println("c == d: ", c == d) //false
+	fmt.Println("d == a: ", d == a) //true
+}
+```
+
 * maps are essentially dictionaries in python which is fine just iterating over them is a bit more tricky **maps are also unordered** and black keys return `0` however we can get around this with the `ok` check
 
 ```go
@@ -94,6 +112,16 @@ if value, ok := testMap["paired with"]; ok {
 	fmt.Println("not a key")
 }
 //not a key
+```
+
+*Converting a Go data stuct JSSON is called marshaling.
+
+```go
+data, err := json.Marshal(exampleMap)
+if err != nil {
+	log.Fatalf("JSON marshaling failed: %s", err)
+	}
+	fmt.Printf("%s\n", data)
 ```
 
 * go appends arrays by making new arrays for example:
@@ -129,6 +157,22 @@ array := strings.Split("meow", "")
 for index, value := range array{
 	fmt.Println(index, value)
 }
+```
+
+* i _hate_ how you have to do array[-1] in golang
+
+```go
+var a [...]int{1, 2, 3, 4, 5}
+fmt.Println(a[len(a)-1])
+```
+
+* an interesting way to make an array of runes
+
+```go
+var array = []rune("joseph")
+	for _, v := range array {
+		fmt.Println(string(v)) // j o s e p h
+	}
 ```
 
 * syncs and wait groups
@@ -261,6 +305,27 @@ fmt.Println("3")
 //1
 //3
 //2
+```
+
+* iota is a 'Constant Generator' beginning at zero 
+
+```go
+type Dog int
+
+const (
+	Layla Dog = iota
+	Winston
+	Shiro
+	Angel
+	Snoop
+	Priscilla
+	Nate
+)
+
+func main() {
+	fmt.Println(Shiro) //2
+	fmt.Println(Layla) //0
+}
 ```
 
 # Examples
