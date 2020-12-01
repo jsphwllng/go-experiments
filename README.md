@@ -155,7 +155,7 @@ fmt.Println(slice, array)
 ```go
 array := strings.Split("meow", "")
 for index, value := range array{
-	fmt.Println(index, value)
+	fmt.Println(index, value) //m, e, o, w
 }
 ```
 
